@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 import collections
 
+from django.core.urlresolvers import resolve
 from django.utils.translation import ugettext_lazy as _
 from django.db.utils import IntegrityError
 from django.conf import settings
@@ -247,7 +248,7 @@ class ViewBackend(MetadataBackend):
     def get_instances(self, queryset, path, context):
         view_name = ""
         if path is not None:
-            view_name = resolve_to_name(path)
+            view_name = resolve(path).view_name
         return queryset.filter(_view=view_name or "")
 
     def get_model(self, options):
