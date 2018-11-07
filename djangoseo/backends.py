@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 import collections
 
-from django.core.urlresolvers import resolve
+from django.urls.resolvers import resolve
 from django.utils.translation import ugettext_lazy as _
 from django.db.utils import IntegrityError
 from django.conf import settings
