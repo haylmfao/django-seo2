@@ -43,7 +43,7 @@ from __future__ import unicode_literals
 
 import hashlib
 
-from django.urls.resolvers import reverse
+from django.urls  import reverse
 from django.test import TestCase
 
 try:
