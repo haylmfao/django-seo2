@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 import collections
 
-from django.urls  import resolve
+from django.urls import resolve
 from django.utils.translation import ugettext_lazy as _
 from django.db.utils import IntegrityError
 from django.conf import settings
@@ -11,6 +11,7 @@ from django.contrib.sites.models import Site
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.template import Template, Context
+from django.http import Http404
 from django.utils.encoding import python_2_unicode_compatible
 from six import string_types, with_metaclass
 
@@ -248,7 +249,10 @@ class ViewBackend(MetadataBackend):
     def get_instances(self, queryset, path, context):
         view_name = ""
         if path is not None:
-            view_name = resolve(path).view_name
+            try:
+                view_name = resolve(path).view_name
+            except Http404:
+                pass
         return queryset.filter(_view=view_name or "")
 
     def get_model(self, options):
